@@ -1,11 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://t84ex8gts65h"]
+[gd_scene load_steps=5 format=3 uid="uid://t84ex8gts65h"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_elje3"]
-[ext_resource type="Texture2D" uid="uid://djkjevvboitnx" path="res://assets/textures/player/Fall (32x32).png" id="2_l4t6s"]
+[ext_resource type="PackedScene" uid="uid://b2s33q8feq171" path="res://assets/textures/player/player.tscn" id="2_80s02"]
+[ext_resource type="Texture2D" uid="uid://bfq8od2r0r1iy" path="res://icon.svg" id="3_lp5jv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aex7v"]
+size = Vector2(512, 20)
 
 [node name="level" type="Node2D"]
 script = ExtResource("1_elje3")
 
-[node name="Fall(32x32)" type="Sprite2D" parent="."]
-position = Vector2(259, 151)
-texture = ExtResource("2_l4t6s")
+[node name="Player" parent="." instance=ExtResource("2_80s02")]
+position = Vector2(221, 147)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground"]
+position = Vector2(244, 266)
+scale = Vector2(4, 0.15625)
+texture = ExtResource("3_lp5jv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(244, 266)
+shape = SubResource("RectangleShape2D_aex7v")
