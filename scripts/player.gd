@@ -45,8 +45,7 @@ func update_animation(direction):
 func jump(force):
 	velocity.y += -force
 
-func _process(delta):
-	pass
+
 	
 		
 

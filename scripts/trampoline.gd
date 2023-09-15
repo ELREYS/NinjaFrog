@@ -10,6 +10,7 @@ extends Area2D
 func _on_body_entered(body):
 	if body is Player:
 		anim.play("Jump")
-		body.jump(300)
+		body.velocity.y = 0
+		body.jump(jumpForce)
 	
 	
