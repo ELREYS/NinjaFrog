@@ -1,6 +1,6 @@
 extends Node2D
 
-
+@onready var start_position = $StartPosition
 
 
 # Called when the node enters the scene tree for the first time.
@@ -15,3 +15,9 @@ func _process(delta):
 	elif Input.is_action_just_pressed("reset"):
 		get_tree().reload_current_scene()
 		
+
+
+func _on_deadzone_body_entered(body):
+	body.velocity = Vector2.ZERO
+	body.global_position = start_position.position
+	
