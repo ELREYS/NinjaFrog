@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://t84ex8gts65h"]
+[gd_scene load_steps=8 format=3 uid="uid://t84ex8gts65h"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_elje3"]
 [ext_resource type="PackedScene" uid="uid://b2s33q8feq171" path="res://assets/textures/player/player.tscn" id="2_80s02"]
 [ext_resource type="Texture2D" uid="uid://bfq8od2r0r1iy" path="res://icon.svg" id="3_lp5jv"]
 [ext_resource type="PackedScene" uid="uid://cogclgntghtg1" path="res://assets/textures/other/traps.tscn" id="4_qsyb2"]
+[ext_resource type="PackedScene" uid="uid://46tei5xdoc4f" path="res://assets/textures/other/trampoline.tscn" id="5_gh5vr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aex7v"]
 size = Vector2(512, 20)
@@ -57,5 +58,9 @@ position = Vector2(51, 253)
 
 [node name="idlePoint2" type="Marker2D" parent="."]
 position = Vector2(333, 255)
+
+[node name="Trampoline" parent="idlePoint2" instance=ExtResource("5_gh5vr")]
+position = Vector2(-199, 1)
+jumpForce = 300
 
 [connection signal="body_entered" from="Deadzone" to="." method="_on_deadzone_body_entered"]

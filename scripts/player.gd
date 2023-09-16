@@ -4,7 +4,7 @@ class_name  Player
 @export var move_speed = 125
 @export var jump_force = 200
 var direction
-var playerDamaged: bool
+var playerDamaged = false
 var canMove: bool = true
 
 var knockback = Vector2.ZERO
@@ -15,16 +15,14 @@ var knockback = Vector2.ZERO
 
 
 func _physics_process(delta):
-	
 	if !is_on_floor():
 		velocity.y += gravity * delta 
-		
-	print(getDirection())
-		
+			
+	##Wait before move and Damaged	
 	if canMoveTime.get_time_left() <= 0:
 		canMove = true
 		playerDamaged = false
-		velocity.x  =  direction * move_speed
+		velocity.x  =  getDirection() * move_speed
 	
 	if direction != 0:
 		animated_sprite.flip_h = (direction == -1)

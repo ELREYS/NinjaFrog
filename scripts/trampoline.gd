@@ -11,6 +11,6 @@ func _on_body_entered(body):
 	if body is Player:
 		anim.play("Jump")
 		body.velocity.y = 0
-		body.jump(jumpForce)
+		body.jump(Vector2(body.position.x,-jumpForce))
 	
 	

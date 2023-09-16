@@ -11,7 +11,6 @@ var flip: bool = false
 @export var distance: float = 0.5
 @export var duration : float
 @onready var idleTimer = $idleTimer
-@onready var knockBack = $knockBackTimer
 @onready var anim = $AnimatedSprite2D
  
 
