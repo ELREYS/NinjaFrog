@@ -3,24 +3,34 @@ class_name  Player
 @export var gravity = 400
 @export var move_speed = 125
 @export var jump_force = 200
+var direction
+var playerDamaged: bool
+var canMove: bool = true
+
+var knockback = Vector2.ZERO
 
 
-
+@onready var canMoveTime = $canMoveTimer
 @onready var animated_sprite = $AnimatedSprite2D
 
 
 func _physics_process(delta):
 	
 	if !is_on_floor():
-		velocity.y += gravity * delta
+		velocity.y += gravity * delta 
 		
-	var direction = Input.get_axis("left","right")	
-	velocity.x  =  direction * move_speed
+	print(getDirection())
+		
+	if canMoveTime.get_time_left() <= 0:
+		canMove = true
+		playerDamaged = false
+		velocity.x  =  direction * move_speed
+	
 	if direction != 0:
 		animated_sprite.flip_h = (direction == -1)
 	
 	if Input.is_action_just_pressed("jump"): #&& is_on_floor():
-		jump(jump_force)
+		jump(Vector2(position.x,-jump_force))
 		
 	
 	
@@ -28,24 +38,40 @@ func _physics_process(delta):
 	update_animation(direction)
 	
 func update_animation(direction):
+	
 	if is_on_floor():
+		if playerDamaged:
+			animated_sprite.play("hit")
 		if direction == 0:
 			animated_sprite.play("idle")
 		else: 
 			animated_sprite.play("run")	
 	
-	else: 
-		if velocity.y < 0:
-			animated_sprite.play("jump")
-		else:
-			animated_sprite.play("fall")
+	else:
+		if playerDamaged:
+			animated_sprite.play("hit") 
+		else:	
+			if velocity.y < 0:
+				animated_sprite.play("jump")
+			else:
+				animated_sprite.play("fall")
 	
 	
+func set_canMove():
+	canMove = !canMove
+	canMoveTime.start()
+	
+func jump(direction:Vector2):
+	velocity = direction
 
-func jump(force):
-	velocity.y += -force
-
-
+func PlayerDamaged():
+	playerDamaged = true
+	
+func getPlayerFacingDirection():
+	return animated_sprite.is_flipped_h()
+func getDirection():
+	direction = Input.get_axis("left","right")
+	return direction
 	
 		
 

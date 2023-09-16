@@ -21,3 +21,5 @@ func _on_deadzone_body_entered(body):
 	body.velocity = Vector2.ZERO
 	body.global_position = start_position.position
 	
+
+
