@@ -1,5 +1,5 @@
 extends Area2D
-
+class_name Traps
 @export var jumpDirection = Vector2() 
 @export var idlePoint1 = Marker2D
 @export var idlePoint2 = Marker2D
@@ -55,18 +55,19 @@ func _process(delta):
 
 
 func _on_body_entered(body):
-	body.set_canMove()
-	body.PlayerDamaged()
-	print(body)
-	if body.getDirection() == 1:
-		body.jump(Vector2(jumpDirection.x * 1 ,jumpDirection.y))
-	elif body.getDirection() == -1:
-		body.jump(Vector2(jumpDirection.x * -1 ,jumpDirection.y))
-	elif body.getDirection() == 0:
-		if body.getPlayerFacingDirection():
-			body.jump(Vector2(jumpDirection.x * -1 ,jumpDirection.y))
-		else:
+	if body is Player:
+		body.set_canMove()
+		body.PlayerDamaged()
+		print(body)
+		if body.getDirection() == 1:
 			body.jump(Vector2(jumpDirection.x * 1 ,jumpDirection.y))
+		elif body.getDirection() == -1:
+			body.jump(Vector2(jumpDirection.x * -1 ,jumpDirection.y))
+		elif body.getDirection() == 0:
+			if body.getPlayerFacingDirection():
+				body.jump(Vector2(jumpDirection.x * -1 ,jumpDirection.y))
+			else:
+				body.jump(Vector2(jumpDirection.x * 1 ,jumpDirection.y))
 	
 
 

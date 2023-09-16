@@ -3,6 +3,9 @@
 [ext_resource type="Script" path="res://scripts/Traps.gd" id="1_1eokc"]
 [ext_resource type="Texture2D" uid="uid://7sebh63j3blf" path="res://assets/textures/other/Saw.png" id="2_abhf8"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ls1sf"]
+radius = 19.105
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hri2y"]
 atlas = ExtResource("2_abhf8")
 region = Rect2(0, 0, 38, 38)
@@ -79,23 +82,17 @@ animations = [{
 "speed": 20.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ls1sf"]
-radius = 19.105
-
 [node name="Traps" type="Area2D"]
-collision_layer = 8
-collision_mask = 2
 script = ExtResource("1_1eokc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ls1sf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_11pge")
 animation = &"idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ls1sf")
-
 [node name="idleTimer" type="Timer" parent="."]
-process_callback = 0
 one_shot = true
 autostart = true
 
